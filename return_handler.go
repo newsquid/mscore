@@ -1,4 +1,4 @@
-package core
+package mscore
 
 import (
 	"encoding/json"
