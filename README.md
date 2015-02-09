@@ -31,24 +31,24 @@ codes and structs to HTTP responses containing JSON data
 
 
 ## Command line argument parsing
-The ˋParseArguments()ˋ function parses the command line arguments to an instance of the
+The `ParseArguments()` function parses the command line arguments to an instance of the
 follow struct:
 
-ˋˋˋgo
+```go
 type Arguments struct {
 	Migrate bool // --migrate
 }
-ˋˋˋ
+```
 
 
 ## Database connection
-A database connection is established with the ˋInitDB()ˋ function. It takes no
+A database connection is established with the `InitDB()` function. It takes no
 arguments, but establishes the connection based on the followin environment
 variables:
 
-- ˋDBˋ: The database type ("sqlite3", "mysql", etc.)
-- ˋDBCONNˋ: The connection string
-- ˋDBDEBUGˋ: Whether or not the connection is in debug mode (true/false)
+- `DB`: The database type ("sqlite3", "mysql", etc.)
+- `DBCONN`: The connection string
+- `DBDEBUG`: Whether or not the connection is in debug mode (true/false)
 
 The values default to "sqlite3", "database.db", false.
 
