@@ -34,7 +34,7 @@ codes and structs to HTTP responses containing JSON data
 The ˋParseArguments()ˋ function parses the command line arguments to an instance of the
 follow struct:
 
-ˋˋˋ
+ˋˋˋgo
 type Arguments struct {
 	Migrate bool // --migrate
 }
