@@ -31,6 +31,9 @@ func InitServer(DB *gorm.DB) (*martini.Martini, martini.Router) {
 	m.Use(QueryParameters())
 	m.Use(UserIPService())
 
+	// Map the database connection
+	m.Map(DB)
+
 	//Set returnhandler
 	m.Map(JSONReturnHandler())
 
