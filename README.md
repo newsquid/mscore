@@ -32,7 +32,7 @@ codes and structs to HTTP responses containing JSON data
 
 ## Command line argument parsing
 The `ParseArguments()` function parses the command line arguments to an instance of the
-follow struct:
+following struct:
 
 ```go
 type Arguments struct {
@@ -43,7 +43,7 @@ type Arguments struct {
 
 ## Database connection
 A database connection is established with the `InitDB()` function. It takes no
-arguments, but establishes the connection based on the followin environment
+arguments, but establishes the connection based on the following environment
 variables:
 
 - `DB`: The database type ("sqlite3", "mysql", etc.)

@@ -41,7 +41,7 @@ func Migrate(DB *gorm.DB) {
 }
 
 /*
-Setup the reouts
+Setup the routes
 */
 func SetupRoutes(router martini.Router) {
 	router.Get("/example", ExampleEndpoint)
@@ -54,7 +54,8 @@ func ExampleEndpoint(DB *gorm.DB) (Example, mscore.Error) {
 	var example Example
 	if err := DB.Find(&example).Error; err != nil {
 		if err == gorm.RecordNotFound {
-			return example, mscore.New(404, "Example entry not found")
+			return example, mscore.NewError(404,
+				"Example entry not found")
 		}
 		return example, mscore.InternalServerErr(err)
 	}

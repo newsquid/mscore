@@ -24,15 +24,15 @@ type httpError struct {
 	errorMessage string
 }
 
-func New(statusCode int, errorMessage string) Error {
+func NewError(statusCode int, errorMessage string) Error {
 	return &httpError{statusCode, errorMessage}
 }
 
-func NewFromStatusWithMessage(code int, msg string) Error {
+func NewErrorFromStatusWithMessage(code int, msg string) Error {
 	return &httpError{code, msg}
 }
 
-func NewFromStatus(code int) Error {
+func NewErrorFromStatus(code int) Error {
 	return &httpError{code, http.StatusText(code)}
 }
 
