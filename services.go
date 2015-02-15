@@ -14,6 +14,9 @@ func QueryParameters() func(martini.Context, *http.Request) {
 	}
 }
 
+/*
+UserIP IP address of a user.
+*/
 type UserIP struct {
 	IP string
 }
