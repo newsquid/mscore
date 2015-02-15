@@ -24,14 +24,37 @@ type httpError struct {
 	errorMessage string
 }
 
+/*
+Error get the error message of the error
+*/
+func (t *httpError) Error() string {
+	return t.errorMessage
+}
+
+/*
+StatusCode get the statuscode of the error
+*/
+func (t *httpError) StatusCode() int {
+	return t.statusCode
+}
+
+/*
+NewError creates an error with statusCode and errorMessage
+*/
 func NewError(statusCode int, errorMessage string) Error {
 	return &httpError{statusCode, errorMessage}
 }
 
+/*
+NewErrorFromStatusWithMessage creates an error with statusCode and errorMessage
+*/
 func NewErrorFromStatusWithMessage(code int, msg string) Error {
 	return &httpError{code, msg}
 }
 
+/*
+NewErrorFromStatus creates an error from a statuscode with the default message for the status code.
+*/
 func NewErrorFromStatus(code int) Error {
 	return &httpError{code, http.StatusText(code)}
 }
@@ -55,6 +78,13 @@ func InternalServerErr(err error) Error {
 }
 
 /*
+Log an error
+*/
+func LogError(err error) {
+	logError(err)
+}
+
+/*
 LogError, logs an error to the console
 */
 func logError(err error) {
@@ -69,12 +99,4 @@ func logError(err error) {
 	} else {
 		log.Printf("[Internal Error] %s", err.Error())
 	}
-}
-
-func (t *httpError) Error() string {
-	return t.errorMessage
-}
-
-func (t *httpError) StatusCode() int {
-	return t.statusCode
 }
