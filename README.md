@@ -13,6 +13,7 @@ therefore only be tested through services making use of the framework.
 The framework contains utilities for:
 
 - JSON APIs based on the Martini HTTP framework
+- Some Martini middle ware for parsing useful parameters from requests
 - Parsing of a number of default command line arguments
 - Database connection based on environment variables
 - Database interaction through the Gorm ORM
@@ -30,6 +31,23 @@ structs. In addition, it handles:
 - Adding a return handler, which automatically converts returned HTTP status
 codes and structs to HTTP responses containing JSON data
 
+##Parameter middle ware 
+MSCore currently includes 3 middle ware handlers for parsing often used request
+parameters (available in the parameters.go file):
+
+- `Pagination` parses the query parameters `page` and `items_per_page` from a
+  request and saves them in the `PaginationParameters` struct, that also
+  contains the helpful `Offset()` method for calculating the current item
+  offset. Default values are 1 and 9 respectively if they are not set in the
+  request. Example request: `http://example.com/?page=2&items_per_page`.
+- `ResourceId` parses the `:id` parameter from a martini route, and fails with
+  a http 422 status code if the id is not set. Example route: `/:id/info`.
+- `SearchTerm` parses the `search` query parameter from a request at save it in a
+  `SearchParameter` struct, if `search` is not set in the request
+  `SearchParameter.Success` will be false. `SearchParameter` also contains the
+  helpful `SearchTerm()` method that will return the `%Search%` useful for
+  database querying. Example request: `http://example.com/?search=test`
+
 
 ## Command line argument parsing
 The `ParseArguments()` function parses the command line arguments to an instance of the
@@ -40,7 +58,6 @@ type Arguments struct {
 	Migrate bool // --migrate
 }
 ```
-
 
 ## Database connection
 A database connection is established with the `InitDB()` function. It takes no
