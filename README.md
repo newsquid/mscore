@@ -66,7 +66,7 @@ a single method `Routine()` representing the routine of work that has to be
 performed. After defining a worker and implementing its routine, we simply start
 it using a `Handler` giving it some `Interval` between each routine of work:
 
-```golang
+```go
 worker := YourWorker{}
 handler := mscore.Handler{
     Worker: worker,
