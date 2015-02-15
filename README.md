@@ -17,6 +17,7 @@ The framework contains utilities for:
 - Database connection based on environment variables
 - Database interaction through the Gorm ORM
 - Database migration based on the auto-migration of the Gorm ORM
+- Handling background workers
 - Unit testing based on the Testify test framework
 - Integration testing based on the Testify test framework and on the Martini HTTP framework
 
@@ -58,6 +59,21 @@ Database interaction and migration is done directly on the Gorm database
 connection. Martini middleware ensures that the connection is available to the
 endpoints.
 
+##Handling background workers
+Background workers can be used to have a routine of work performed a regular
+intervals. A worker is defined by conforming to the `Worker` interface which has
+a single method `Routine()` representing the routine of work that has to be
+performed. After defining a worker and implementing its routine, we simply start
+it using a `Handler` giving it some `Interval` between each routine of work:
+
+```golang
+worker := YourWorker{}
+handler := mscore.Handler{
+    Worker: worker,
+    Interval: time.Minute * 5,
+}
+handler.Start()
+```
 
 ## Unit and integration testing
 For testing, a test struct must be defined. MSCore provides helper methods for setup and teardown. See the example for more details.
