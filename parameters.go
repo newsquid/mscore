@@ -31,14 +31,6 @@ type IdParameter struct {
 }
 
 /*
-NameParameter contains a name
-Same idea as IdParameter, but a string
-*/
-type NameParameter struct {
-	Name string
-}
-
-/*
 SearchParameter cotains a search string if success is true
 */
 type SearchParameter struct {
@@ -81,22 +73,6 @@ func ResourceId(w http.ResponseWriter, params martini.Params, m martini.Context)
 	}
 
 	m.Map(IdParameter{Id: id})
-}
-
-/*
-ResourceName retrieves the 'name' parameter and validates it. An error is thrown if
-the parameter is missing or invalid
-*/
-func ResourceName(name string) func(httt.ResponseWriter, martini.Params) {
-	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		name_value, err := strconv.ParseInt(params[name], 10, 64)
-
-		if err != nil || id < 1 {
-			http.Error(w, "Unprocessable Entity", 422)
-		}
-
-		m.Map(NameParameter{Name: name_value})
-	}
 }
 
 /*
