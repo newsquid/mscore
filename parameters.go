@@ -87,11 +87,11 @@ func ResourceId(w http.ResponseWriter, params martini.Params, m martini.Context)
 ResourceName retrieves the 'name' parameter and validates it. An error is thrown if
 the parameter is missing or invalid
 */
-func ResourceName(name string) func(httt.ResponseWriter, martini.Params) {
+func ResourceName(name string) func(http.ResponseWriter, martini.Params, martini.Context) {
 	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		name_value, err := strconv.ParseInt(params[name], 10, 64)
+		name_value := params[name]
 
-		if err != nil || id < 1 {
+		if "" == name_value {
 			http.Error(w, "Unprocessable Entity", 422)
 		}
 
