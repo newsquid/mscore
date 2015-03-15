@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 /*
@@ -21,6 +22,11 @@ Offset calculates the current item offset using the page number and items per pa
 */
 func (p PaginationParameters) Offset() int {
 	return (p.Page - 1) * p.ItemsPerPage
+}
+
+type PeriodParameters struct {
+	From time.Time
+	To   time.Time
 }
 
 /*
@@ -67,6 +73,25 @@ func Pagination(w http.ResponseWriter, query url.Values, m martini.Context) {
 	}
 
 	m.Map(PaginationParameters{Page: page, ItemsPerPage: itemsPerPage})
+}
+
+func DatePeriod(w http.ResponseWriter, query url.Values, m martini.Context) {
+	from := query.Get("fromdate")
+	to := query.Get("todate")
+
+	if "" == to || "" == to {
+		http.Error(w, "fromdate or todate missing", http.StatusBadRequest)
+		return
+	}
+
+	from_date, from_date_err := time.Parse(time.RFC3339, from)
+	to_date, to_date_err := time.Parse(time.RFC3339, to)
+
+	if nil != from_date_err || nil != to_date_err {
+		http.Error(w, "fromdate or todate could not be parsed", 422)
+	}
+
+	m.Map(PeriodParameters{From: from_date, To: to_date})
 }
 
 /*
