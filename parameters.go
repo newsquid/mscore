@@ -39,7 +39,7 @@ type IdParameter struct {
 /*
 IntParameter is a generalization of IdParameter
 */
-type IdParameter struct {
+type IntParameter struct {
 	Int int64
 }
 
