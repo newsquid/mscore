@@ -121,13 +121,13 @@ the parameter is missing or invalid
 */
 func ResourceInt(name string) func(http.ResponseWriter, martini.Params, martini.Context) {
 	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		id, err := strconv.ParseInt(params[name], 10, 64)
+		Int, err := strconv.ParseInt(params[name], 10, 64)
 
-		if err != nil || id < 1 {
+		if err != nil || Int < 1 {
 			http.Error(w, "Unprocessable Entity", 422)
 		}
 
-		m.Map(IntParameter{Id: id})
+		m.Map(IntParameter{Int: Int})
 	}
 }
 
