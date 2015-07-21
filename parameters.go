@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 /*
@@ -23,11 +24,24 @@ func (p PaginationParameters) Offset() int {
 	return (p.Page - 1) * p.ItemsPerPage
 }
 
+type PeriodParameters struct {
+	From time.Time
+	To   time.Time
+}
+
 /*
 IdParameter contains an id
 */
 type IdParameter struct {
 	Id int64
+}
+
+/*
+NameParameter contains a name
+Same idea as IdParameter, but a string
+*/
+type NameParameter struct {
+	Name string
 }
 
 /*
@@ -61,6 +75,25 @@ func Pagination(w http.ResponseWriter, query url.Values, m martini.Context) {
 	m.Map(PaginationParameters{Page: page, ItemsPerPage: itemsPerPage})
 }
 
+func DatePeriod(w http.ResponseWriter, query url.Values, m martini.Context) {
+	from := query.Get("fromdate")
+	to := query.Get("todate")
+
+	if "" == to || "" == to {
+		http.Error(w, "fromdate or todate missing", http.StatusBadRequest)
+		return
+	}
+
+	from_date, from_date_err := time.Parse(time.RFC3339, from)
+	to_date, to_date_err := time.Parse(time.RFC3339, to)
+
+	if nil != from_date_err || nil != to_date_err {
+		http.Error(w, "fromdate or todate could not be parsed", 422)
+	}
+
+	m.Map(PeriodParameters{From: from_date, To: to_date})
+}
+
 /*
 ResourceId retrieves the 'id' parameter and validates it. An error is thrown if
 the parameter is missing or invalid
@@ -73,6 +106,22 @@ func ResourceId(w http.ResponseWriter, params martini.Params, m martini.Context)
 	}
 
 	m.Map(IdParameter{Id: id})
+}
+
+/*
+ResourceName retrieves the 'name' parameter and validates it. An error is thrown if
+the parameter is missing or invalid
+*/
+func ResourceName(name string) func(http.ResponseWriter, martini.Params, martini.Context) {
+	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
+		name_value := params[name]
+
+		if "" == name_value {
+			http.Error(w, "Unprocessable Entity", 422)
+		}
+
+		m.Map(NameParameter{Name: name_value})
+	}
 }
 
 /*

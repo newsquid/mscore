@@ -29,3 +29,9 @@ func UserIPService() func(martini.Context, *http.Request) {
 		c.Map(UserIP{req.RemoteAddr})
 	}
 }
+
+func Redirect(url string) func(http.ResponseWriter, *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, url, 302)
+	}
+}
