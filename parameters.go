@@ -121,7 +121,7 @@ the parameter is missing or invalid
 */
 func ResourceInt(name string) func(http.ResponseWriter, martini.Params, martini.Context) {
 	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		id, err := strconv.ParseInt(params["id"], 10, 64)
+		id, err := strconv.ParseInt(params[name], 10, 64)
 
 		if err != nil || id < 1 {
 			http.Error(w, "Unprocessable Entity", 422)
