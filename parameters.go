@@ -37,6 +37,13 @@ type IdParameter struct {
 }
 
 /*
+IntParameter is a generalization of IdParameter
+*/
+type IdParameter struct {
+	Int int64
+}
+
+/*
 NameParameter contains a name
 Same idea as IdParameter, but a string
 */
@@ -106,6 +113,22 @@ func ResourceId(w http.ResponseWriter, params martini.Params, m martini.Context)
 	}
 
 	m.Map(IdParameter{Id: id})
+}
+
+/*
+ResourceInt retrieves an int parameter and validates it. An error is thrown if
+the parameter is missing or invalid
+*/
+func ResourceInt(name string) func(http.ResponseWriter, martini.Params, martini.Context) {
+	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
+		id, err := strconv.ParseInt(params["id"], 10, 64)
+
+		if err != nil || id < 1 {
+			http.Error(w, "Unprocessable Entity", 422)
+		}
+
+		m.Map(IntParameter{Id: id})
+	}
 }
 
 /*
