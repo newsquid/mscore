@@ -50,6 +50,13 @@ func JSONReturnHandler() martini.ReturnHandler {
 				errcode := vals[1].MethodByName("StatusCode").Call(empty)[0]
 				http.Error(w, errmsg.String(), int(errcode.Int()))
 			} else {
+				if vals[0].Kind() == reflect.Slice && vals[0].IsNil() {
+					sl := make([]interface{}, 0)
+					result, _ := json.Marshal(sl)
+					w.WriteHeader(200)
+					w.Write(result)
+					return
+				}
 				//Marshall the value
 				result, err := json.Marshal(vals[0].Interface())
 
