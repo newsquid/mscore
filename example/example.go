@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/jinzhu/gorm"
 	"github.com/newsquid/mscore"
+	"io/ioutil"
+	"net/http"
 	"os"
 )
 
@@ -45,6 +48,12 @@ Setup the routes
 */
 func SetupRoutes(router martini.Router) {
 	router.Get("/example", ExampleEndpoint)
+	router.Post("/posttest", ExamplePost)
+}
+
+func ExamplePost(req *http.Request) {
+	data, _ := ioutil.ReadAll(req.Body)
+	fmt.Println("READ: " + string(data))
 }
 
 /*
