@@ -1,6 +1,7 @@
 package mscore
 
 import (
+	"bytes"
 	"github.com/go-martini/martini"
 	"io/ioutil"
 	"log"
@@ -56,6 +57,9 @@ func LoggerService() martini.Handler {
 
 		bodydata, _ := ioutil.ReadAll(req.Body)
 		body := string(bodydata)
+
+		//Restart body reader
+		req.Body = ioutil.NopCloser(bytes.NewReader(bodydata))
 
 		log.Printf("Started %s %s for %s %s", req.Method, req.URL.String(), addr, body)
 
