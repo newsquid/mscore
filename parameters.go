@@ -155,7 +155,7 @@ the parameter is invalid. If it is missing, def is used
 */
 func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, martini.Params, martini.Context) {
 	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		value_string = params[name]
+		value_string := params[name]
 		value, err := strconv.ParseBool(value_string)
 
 		if "" == value_string {
