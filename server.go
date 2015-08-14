@@ -18,7 +18,7 @@ func InitServer(DB *gorm.DB) (*martini.Martini, martini.Router) {
 
 	//Set middleware
 	m.Use(martini.Recovery())
-	m.Use(martini.Logger())
+	m.Use(LoggerService())
 
 	m.Use(cors.Allow(&cors.Options{
 		AllowOrigins:     []string{"*"},

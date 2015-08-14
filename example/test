@@ -1,0 +1,10 @@
+HTTP/1.1 500 Internal Server Error
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Headers: Authorization,Content-Type
+Access-Control-Allow-Methods: OPTIONS,HEAD,POST,GET,PUT,PATCH,DELETE
+Access-Control-Allow-Origin: 
+Access-Control-Expose-Headers: Content-Length
+Content-Type: text/plain; charset=utf-8
+Date: Fri, 14 Aug 2015 08:43:38 GMT
+Content-Length: 22
+
