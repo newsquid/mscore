@@ -54,10 +54,13 @@ func LoggerService() martini.Handler {
 			}
 		}
 
-		bodydata, _ := ioutil.ReadAll(req.Body)
-		body := string(bodydata)
+		bodydata, err := ioutil.ReadAll(req.Body)
+		var body string
+		if req.Method == "POST" && err != nil {
+			body = "body: " + string(bodydata)
+		}
 
-		log.Printf("Started %s %s for %s with: %s", req.Method, req.URL.Path, addr, body)
+		log.Printf("Started %s %s for %s %s", req.Method, req.URL.String(), addr, body)
 
 		rw := res.(martini.ResponseWriter)
 		c.Next()
