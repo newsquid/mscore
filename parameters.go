@@ -51,6 +51,8 @@ type NameParameter struct {
 	Name string
 }
 
+type NamedBoolParameter bool
+
 /*
 SearchParameter cotains a search string if success is true
 */
@@ -144,6 +146,28 @@ func ResourceName(name string) func(http.ResponseWriter, martini.Params, martini
 		}
 
 		m.Map(NameParameter{Name: name_value})
+	}
+}
+
+/*
+NamedBool retrieves the 'name' parameter and validates it. An error is thrown if
+the parameter is invalid. If it is missing, def is used
+*/
+func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, martini.Params, martini.Context) {
+	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
+		value_string = params[name]
+		value, err := strconv.ParseBool(value_string)
+
+		if "" == value_string {
+			m.Map(NamedBool(def))
+			return
+		}
+
+		if nil != err {
+			http.Error(w, fmt.Sprintf("\"%s\" is not a boolean"), 422)
+		}
+
+		m.Map(NamedBool(value))
 	}
 }
 
