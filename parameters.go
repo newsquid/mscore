@@ -159,7 +159,7 @@ func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, martini.P
 		value, err := strconv.ParseBool(value_string)
 
 		if "" == value_string {
-			m.Map(NamedBool(def))
+			m.Map(NamedBoolParameter(def))
 			return
 		}
 
@@ -167,7 +167,7 @@ func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, martini.P
 			http.Error(w, fmt.Sprintf("\"%s\" is not a boolean"), 422)
 		}
 
-		m.Map(NamedBool(value))
+		m.Map(NamedBoolParameter(value))
 	}
 }
 
