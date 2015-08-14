@@ -153,9 +153,9 @@ func ResourceName(name string) func(http.ResponseWriter, martini.Params, martini
 NamedBool retrieves the 'name' parameter and validates it. An error is thrown if
 the parameter is invalid. If it is missing, def is used
 */
-func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, martini.Params, martini.Context) {
-	return func(w http.ResponseWriter, params martini.Params, m martini.Context) {
-		value_string := params[name]
+func NamedBoolDefault(name string, def bool) func(http.ResponseWriter, url.Values, martini.Context) {
+	return func(w http.ResponseWriter, query url.Values, m martini.Context) {
+		value_string := query.Get(name)
 		value, err := strconv.ParseBool(value_string)
 
 		if "" == value_string {
