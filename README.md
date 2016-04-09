@@ -2,7 +2,7 @@
 MSCore is a simple micro service framework written in Go. It has the following dependencies:
 
 - https://github.com/go-martini/martini
-- https://github.com/jinzhu/gorm
+- https://github.com/newsquid/gorm
 - https://github.com/stretchr/testify
 
 The project currently contains no executable code (including tests). It can

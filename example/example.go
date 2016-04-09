@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/go-martini/martini"
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 	"github.com/newsquid/mscore"
 	"os"
 )

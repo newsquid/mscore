@@ -5,7 +5,7 @@ import (
 	ejson "encoding/json"
 	"fmt"
 	"github.com/go-martini/martini"
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 	"io"
 	"io/ioutil"
 )

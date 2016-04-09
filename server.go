@@ -3,7 +3,7 @@ package mscore
 import (
 	"fmt"
 	"github.com/go-martini/martini"
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 	"github.com/martini-contrib/cors"
 	"log"
 	"net/http"

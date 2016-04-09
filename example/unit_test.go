@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 	"github.com/newsquid/mscore"
 	"github.com/stretchr/testify/suite"
 	"testing"

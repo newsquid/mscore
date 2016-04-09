@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 	"io/ioutil"

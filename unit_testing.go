@@ -1,7 +1,7 @@
 package mscore
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/newsquid/gorm"
 )
 
 func SetupUnitTestSuite() *gorm.DB {
